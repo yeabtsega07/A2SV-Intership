@@ -24,7 +24,8 @@ const Opportunity = () => {
       </div>
       <div className=" w-9/12 flex flex-col gap-2 px-3  mb-4" >
         {cardData.map((data, index) => (
-          <Card
+        <Link key={index} href={`/opportunities/${data.id}`}  >
+        <Card
             key={index}
             logo={data.imageUrl}
             title={data.title}
@@ -32,33 +33,34 @@ const Opportunity = () => {
             location={data.location}
             description={data.description}
             tags={data.relatedTopics.map((tag, tagIndex) => {
-              let tagProps = {
-                color: "#000000",
-                bgColor: "#ffffff",
+                let tagProps = {
+                    color: "#000000",
+                    bgColor: "#ffffff",
                 border: false,
-              };
-              if (tagIndex === 0) {
+            };
+            if (tagIndex === 0) {
                 tagProps = {
-                  color: "#56CDAD",
+                    color: "#56CDAD",
                   bgColor: "#e0f5ef",
                   border: false,
                 };
-              } else if (tagIndex === 1) {
+            } else if (tagIndex === 1) {
                 tagProps = {
-                  color: "#FFB836",
-                  bgColor: "#ffffff",
-                  border: true,
+                    color: "#FFB836",
+                    bgColor: "#ffffff",
+                    border: true,
                 };
-              } else if (tagIndex === 2) {
+            } else if (tagIndex === 2) {
                 tagProps = {
-                  color: "#4640DE",
-                  bgColor: "#ffffff",
-                  border: true,
+                    color: "#4640DE",
+                    bgColor: "#ffffff",
+                    border: true,
                 };
-              }
-              return { text: tag, ...tagProps };
-            })}
-          />
+            }
+            return { text: tag, ...tagProps };
+        })}
+        />
+        </Link>
         ))}
       </div>
     </div>

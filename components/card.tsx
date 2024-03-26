@@ -32,7 +32,7 @@ const Card: React.FC<CardProps> = ({
           <span>{location}</span>
         </div>
         <p className="text-gray-700 mb-4">{description}</p>
-        <div className="flex space-x-2">
+        <div className="flex  flex-col sm:flex-row space-x-2">
           {tags.map((tag, index) => (
             <React.Fragment key={index}>
               <Tag {...tag} />
