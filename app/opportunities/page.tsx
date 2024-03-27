@@ -3,9 +3,19 @@ import React from "react";
 import { FaAngleDown } from "react-icons/fa";
 import Link from "next/link";
 import Card from "@/components/card";
-import cardData from "@/data/profile.json";
+import { useGetOpportunitiesQuery } from "@/redux/slice/api";
 
 const Opportunity = () => {
+
+  const { data } = useGetOpportunitiesQuery();
+
+  if (!data) {
+    return <div>Loading...</div>;
+  }
+
+  const opportunities = data.data
+
+
   return (
     <div className="w-full flex flex-col gap-4 items-center justify-center bg-white py-10">
       <div className=" w-9/12 flex justify-between px-3  mb-4">
@@ -23,16 +33,16 @@ const Opportunity = () => {
         </div>
       </div>
       <div className=" w-9/12 flex flex-col gap-2 px-3  mb-4" >
-        {cardData.map((data, index) => (
+        {opportunities.map((data, index) => (
         <Link key={index} href={`/opportunities/${data.id}`}  >
         <Card
             key={index}
-            logo={data.imageUrl}
+            logo={data.logoUrl}
             title={data.title}
-            company={data.company}
-            location={data.location}
+            company={data.orgName}
+            location={data.location.join(" ")}
             description={data.description}
-            tags={data.relatedTopics.map((tag, tagIndex) => {
+            tags={data.requiredSkills.map((tag, tagIndex) => {
                 let tagProps = {
                     color: "#000000",
                     bgColor: "#ffffff",

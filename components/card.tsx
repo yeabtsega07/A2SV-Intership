@@ -22,7 +22,7 @@ const Card: React.FC<CardProps> = ({
   return (
     <div className="flex flex-col sm:flex-row bg-white p-6 rounded-3xl border shadow-sm">
       <div className="flex-shrink-0 sm:mr-6 mb-4 sm:mb-0">
-        <Image src={logo} alt="logo" width={66} height={59} />
+        <Image src={logo || '/placeholder.jpg'} alt="logo" width={66} height={59} />
       </div>
       <div className="flex-grow">
         <h2 className="text-lg sm:text-xl font-semibold text-gray-900 mb-2">{title}</h2>

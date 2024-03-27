@@ -3,52 +3,43 @@
 import CardBar from "@/components/cardBar";
 import { useParams } from "next/navigation";
 import { FaRegCircleCheck } from "react-icons/fa6";
-import cardData from "@/data/profile.json";
-import jobDetail from "@/data/detail.json";
-import { FaTruckLoading } from "react-icons/fa";
 import { CiLocationOn } from "react-icons/ci";
 import { AiOutlineFire } from "react-icons/ai";
-import { BsCalendar2Plus } from "react-icons/bs";
 import { HiOutlinePlusCircle } from "react-icons/hi";
 import { PiCalendarCheck, PiCalendarPlusLight } from "react-icons/pi";
 import { Tag } from "@/components/tag";
+import { useGetOpportunityByIdQuery } from "@/redux/slice/api";
 
 const OpportunityDetail = () => {
   const { id } = useParams();
 
-  const opportunity = cardData.find((item) => String(item.id) === String(id));
+  const { data } = useGetOpportunityByIdQuery(id.toString());
 
-  if (!opportunity) {
-    return <FaTruckLoading />;
+  if (!data) {
+    return <div>Loading...</div>;
   }
 
-  const {
-    description,
-    responsibilities,
-    idealCandidate,
-    whenAndWhere,
-    about,
-    categories,
-    requiredSkills,
-  } = jobDetail;
+  const opportunity = data.data
+
+
 
   return (
     <div className="flex flex-col items-center py-10 w-full bg-white">
       <CardBar
-        logo={opportunity.imageUrl}
+        logo={opportunity.logoUrl}
         title={opportunity.title}
-        location={opportunity.location}
-        company={opportunity.company}
+        location={opportunity.location.join(" ")}
+        company={opportunity.orgName}
       />
       <div className="h-[1px] w-9/12 px-20 mb-5  bg-gray-300"></div>
       <div className="grid grid-cols-1 sm:grid-cols-3 gap-14 p-8 w-full sm:w-9/12">
         <div className="sm:col-span-2 py-12 flex flex-col gap-14">
           <div className="flex flex-col gap-4">
             <h2 className="font-poppins font-extrabold text-3xl leading-7 text-gray-900">
-              {description.heading}
+            Description
             </h2>
             <p className="font-epilogue font-normal text-base leading-[25.6px] text-[#25324B]">
-              {description.content}
+              {opportunity.description}
             </p>
           </div>
 
@@ -57,7 +48,7 @@ const OpportunityDetail = () => {
               Responsibilities
             </h3>
             <ul className="list-disc flex flex-col gap-2">
-              {responsibilities.map((item: string, key: number) => (
+              {opportunity.responsibilities.split('\n').map((item: string, key: number) => (
                 <li
                   key={key}
                   className="flex items-center font-epilogue font-normal text-base leading-[25.6px] text-[#25324B]"
@@ -76,11 +67,10 @@ const OpportunityDetail = () => {
               Ideal Candidate we want
             </h3>
             <ul className="list-disc pl-6">
-              {idealCandidate.map((item, index) => (
+              {opportunity.idealCandidate.split('\n').map((item, index) => (
                 <li key={index} className="mb-4">
                   <p className="font-epilogue font-normal text-base leading-[25.6px] text-[#25324B]">
-                    <span className="font-semibold">{item.label}</span>{" "}
-                    {item.description && item.description}
+                    {item}
                   </p>
                 </li>
               ))}
@@ -92,7 +82,7 @@ const OpportunityDetail = () => {
             </h3>
             <div className="flex gap-4 items-center">
               <CiLocationOn className="text-blue-500 rounded-full border border-[#D6DDEB] p-2 w-12 h-12" />
-              <p className="text-black">{whenAndWhere.onboardingEvent}</p>
+              <p className="text-black">{opportunity.whenAndWhere}</p>
             </div>
           </div>
         </div>
@@ -105,35 +95,35 @@ const OpportunityDetail = () => {
               <HiOutlinePlusCircle className="text-blue-500 rounded-full border border-[#D6DDEB] p-2 w-12 h-12" />
               <div className="font-epilogue font-normal text-base leading-[25.6px] text-[#25324B]">
                 <p>Posted on</p>
-                <p className="font-semibold">{about.postedOn}</p>
+                <p className="font-semibold">{opportunity.datePosted}</p>
               </div>
             </li>
             <li className="flex items-center gap-4">
               <AiOutlineFire className="text-blue-500 rounded-full border border-[#D6DDEB] p-2 w-12 h-12" />
               <div className="font-epilogue font-normal text-base leading-[25.6px] text-[#25324B]">
                 <p>Deadline</p>
-                <p className="font-semibold">{about.deadline}</p>
+                <p className="font-semibold">{opportunity.deadline}</p>
               </div>
             </li>
             <li className="flex items-center gap-4">
               <CiLocationOn className="text-blue-500 rounded-full border border-[#D6DDEB] p-2 w-12 h-12" />
               <div className="font-epilogue font-normal text-base leading-[25.6px] text-[#25324B]">
                 <p>Location</p>
-                <p className="font-semibold">{about.location}</p>
+                <p className="font-semibold">{opportunity.location.join(" ")}</p>
               </div>
             </li>
             <li className="flex items-center gap-4">
             <PiCalendarPlusLight className="text-blue-500 rounded-full border border-[#D6DDEB] p-2 w-12 h-12" />
               <div className="font-epilogue font-normal text-base leading-[25.6px] text-[#25324B]">
                 <p>Start Date</p>
-                <p className="font-semibold">{about.startDate}</p>
+                <p className="font-semibold">{opportunity.startDate}</p>
               </div>
             </li>
             <li className="flex items-center gap-4">
               <PiCalendarCheck className="text-blue-500 rounded-full border border-[#D6DDEB] p-2 w-12 h-12" />
               <div className="font-epilogue font-normal text-base leading-[25.6px] text-[#25324B]">
                 <p>End Date</p>
-                <p className="font-semibold">{about.endDate}</p>
+                <p className="font-semibold">{opportunity.endDate}</p>
               </div>
             </li>
           </ul>
@@ -143,7 +133,7 @@ const OpportunityDetail = () => {
               Categories
             </h3>
             <div className="flex gap-2 items-center">
-              {categories.map((category, index) => (
+              {opportunity.categories.map((category, index) => (
                 <Tag 
                     key={index} 
                     text={category} 
@@ -159,7 +149,7 @@ const OpportunityDetail = () => {
               Required Skills
             </h3>
             <div className="flex flex-wrap gap-4 items-center">
-              {requiredSkills.map((skill, index) => (
+              {opportunity.requiredSkills.map((skill, index) => (
                   <Tag key={index} text={skill} color={"#4640DE"} bgColor="#c4c2fa1f" />
               ))}
             </div>

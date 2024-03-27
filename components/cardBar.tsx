@@ -14,7 +14,7 @@ const CardBar = ({ logo, title, location, company }: cardBarProps) => {
       <div className=" flex flex-col sm:flex-row w-full justify-between px-3">
         <div className="flex flex-col sm:flex-row ">
           <div className="flex-shrink-0 sm:mr-6 mb-4 sm:mb-0">
-            <Image src={logo} alt="logo" width={66} height={59} />
+          <Image src={logo || '/placeholder.jpg'} alt="logo" width={66} height={59} />
           </div>
           <div className="flex-grow">
             <h2 className="text-lg sm:text-2xl font-extrabold text-gray-900 mb-2">
