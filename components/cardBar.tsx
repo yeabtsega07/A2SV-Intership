@@ -2,13 +2,13 @@ import Image from "next/image";
 import { GoShareAndroid } from "react-icons/go";
 
 interface cardBarProps {
-  logo: string;
-  title: string;
-  location: string;
-  company: string;
+  logo?: string;
+  title?: string;
+  location?: string;
+  company?: string;
 }
 
-const CardBar = ({ logo, title, location, company }: cardBarProps) => {
+const CardBar = ({ logo = '/placeholder.jpg', title = '', location = '', company = '' }: cardBarProps) => {
   return (
     <div className=" w-9/12 flex flex-col sm:flex-row bg-white p-6 rounded-3xl border shadow-sm">
       <div className=" flex flex-col sm:flex-row w-full justify-between px-3">
