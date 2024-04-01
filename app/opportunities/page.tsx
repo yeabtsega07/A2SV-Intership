@@ -4,7 +4,7 @@ import React, { useEffect, useState } from "react";
 import { FaAngleDown } from "react-icons/fa";
 import Link from "next/link";
 import Card from "@/components/card";
-import { useGetOpportunitiesQuery } from "@/redux/slice/api";
+import { useGetOpportunitiesQuery } from "@/redux/slice/opportunitesAPI";
 import { Skeleton } from "@/components/ui/skeleton";
 
 

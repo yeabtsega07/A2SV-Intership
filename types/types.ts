@@ -46,4 +46,33 @@ export interface Opportunity {
     errors: any;
     count: number;
   }
+
+  export  interface LoginCredentials {
+    email: string;
+    password: string;
+  }
+
+  export  interface User {
+    accessToken: string | null;
+    email: string | null;
+    name: string | null;
+    profileComplete: boolean;
+    profilePicUrl: string | null;
+    profileStatus: string | null;
+    refreshToken: string | null;
+    role: string | null;
+  }
+
+  export  interface VerificationData {
+    email: string;
+    otp: string;
+  }
+
+  export  interface SignupCredentials {
+    name: string;
+    email: string;
+    password: string;
+    confirmPassword: string;
+    role: "student" | "organization";
+  }
   

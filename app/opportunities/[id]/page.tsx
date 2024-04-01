@@ -8,7 +8,7 @@ import { AiOutlineFire } from "react-icons/ai";
 import { HiOutlinePlusCircle } from "react-icons/hi";
 import { PiCalendarCheck, PiCalendarPlusLight } from "react-icons/pi";
 import { Tag } from "@/components/tag";
-import { useGetOpportunityByIdQuery } from "@/redux/slice/api";
+import { useGetOpportunityByIdQuery } from "@/redux/slice/opportunitesAPI";
 import { Skeleton } from "@/components/ui/skeleton";
 import { useEffect, useState } from "react";
 
